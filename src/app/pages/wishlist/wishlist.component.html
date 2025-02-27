@@ -1,0 +1,42 @@
+<section class="p-5 bg-gray-200">
+  <h2 class="text-3xl font-semibold text-main mb-3 text-center">WishList</h2>
+
+  <div class="flex flex-col gap-2">
+    @for (prod of wishList(); track prod.id) {
+    <div
+      class="grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-300 border-opacity-35 py-3"
+    >
+      <div>
+        <img
+          [src]="prod.imageCover"
+          [alt]="prod.title"
+          class="w-full h-[150px] object-contain"
+        />
+      </div>
+      <div class="flex justify-between items-center">
+        <div class="w-3/4">
+          <p>{{ prod.title }}</p>
+          <p class="text-main">Price: {{ prod.price | currency : "GBP" }}</p>
+          <button
+            (click)="removeItemFromWishList(prod._id)"
+            class="text-red-500 hover:text-red-600 transition-all"
+          >
+            <i class="fa-solid fa-trash-can"></i> Remove
+          </button>
+        </div>
+
+        <div>
+          <button
+            (click)="addProductToCart(prod.id)"
+            class="bg-green-600 hover:bg-white hover:text-green-500 hover:border-green-500 transition-all hover:border px-8 py-2 rounded-md border text-white my-1 block w-full mx-auto"
+          >
+            + Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+    } @empty {
+    <h2 class="text-3xl font-semibold text-main">WishList is Empty !</h2>
+    }
+  </div>
+</section>

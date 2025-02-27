@@ -1,0 +1,112 @@
+@if (categories() && products()) {
+
+<section>
+  <div
+    class="md:grid md:grid-cols-[70%_minmax(0,1fr)] overflow-hidden flex flex-col"
+  >
+    <div>
+      <owl-carousel-o [options]="customMainSlider">
+        <ng-template carouselSlide>
+          <img src="/images/img1.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img2.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img3.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img4.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img5.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img6.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img7.avif" class="w-full h-[300px]" alt="" />
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+    <div class="">
+      <img src="/images/grocery-banner.png" alt="" class="w-full h-1/2" />
+      <img src="/images/grocery-banner-2.jpeg" alt="" class="w-full h-1/2" />
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-3xl text-center mb-4 mt-8">Popular Categories</h2>
+  <owl-carousel-o [options]="customOptions">
+    @for (cat of categories(); track cat._id) {
+    <ng-template carouselSlide>
+      <div>
+        <img [src]="cat.image" [alt]="cat.name" class="h-[250px] w-full" />
+        <h3 class="text-green-600">{{ cat.name }}</h3>
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
+</section>
+
+<section>
+  <h2 class="text-3xl mb-4 mt-8 text-center">Popular Products</h2>
+  <input
+    [(ngModel)]="searchText"
+    type="search"
+    id="default-search"
+    class="block mx-auto my-3 w-2/3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+    placeholder="Search by name..."
+    required
+  />
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+    @for (prod of products().slice(0,12) | search : searchText(); track prod.id)
+    {
+    <div
+      class="card border border-green-400/50 rounded-md overflow-hidden shadow relative pb-3 cursor-pointer"
+    >
+      <div [routerLink]="['/productdetails', prod.id]">
+        <div class="card-img">
+          <img
+            [src]="prod.imageCover"
+            class="w-full h-[300px] object-contain"
+            [alt]="prod.title"
+          />
+        </div>
+        <div class="card-body px-2 py-4">
+          <h4 class="text-green-500 text-xs">{{ prod.category.name }}</h4>
+          <h3 class="font-medium">{{ prod.title | trimtext : 3 }}</h3>
+          <div class="flex justify-between items-center">
+            <span>{{ prod.price | currency : "GBP" }}</span>
+            <div class="flex items-center">
+              <i class="fas fa-star text-yellow-300"></i>
+              <span class="text-gray-500">{{ prod.ratingsAverage }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        @if (!isInWishList(wishList() , prod)) {
+        <i
+          class="fa-solid fa-heart cursor-pointer text-2xl hover:text-red-500 transition-all"
+          (click)="addItemToWishList(prod.id)"
+        ></i>
+        } @else {
+        <i
+          class="fa-solid fa-heart cursor-pointer text-2xl text-red-500 hover:text-black transition-all"
+          (click)="removeItemFromWishList(prod.id)"
+        ></i>
+        }
+      </div>
+      <button
+        (click)="addProductToCart(prod.id, isInWishList(wishList(), prod))"
+        class="bg-green-600 hover:bg-green-700 px-10 py-2 rounded-md border text-white my-1 block w-[90%] mx-auto"
+      >
+        + Add to cart
+      </button>
+    </div>
+    }
+  </div>
+</section>
+}

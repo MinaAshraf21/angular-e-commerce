@@ -1,0 +1,85 @@
+<section class="p-5 bg-gray-200">
+  <h2 class="text-3xl font-semibold text-main mb-3 text-center">Shop Cart</h2>
+
+  <div class="flex flex-col gap-2">
+    @for (prod of cartDetails().products; track prod.product.id) {
+    <div
+      class="grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-300 border-opacity-35 py-3"
+    >
+      <div>
+        <img
+          [src]="prod.product.imageCover"
+          [alt]="prod.product.title"
+          class="w-full h-[150px] object-contain"
+        />
+      </div>
+      <div class="flex justify-between items-center">
+        <div class="w-3/4">
+          <p>{{ prod.product.title }}</p>
+          <p class="text-main">Price: {{ prod.price | currency : "GBP" }}</p>
+          <button
+            (click)="removeCartItem(prod.product._id)"
+            class="text-red-500 hover:text-red-600 transition-all"
+          >
+            <i class="fa-solid fa-trash-can"></i> Remove
+          </button>
+        </div>
+        <div>
+          <button
+            (click)="updateCartItemCount(prod.count + 1, prod.product.id)"
+            class="bg-transparent border border-green-500 hover:bg-green-500 hover:text-white px-2 py-1 rounded transition-all"
+          >
+            +
+          </button>
+          <span class="mx-2">{{ prod.count }}</span>
+          <button
+            (click)="updateCartItemCount(prod.count - 1, prod.product.id)"
+            class="bg-transparent border border-green-500 hover:bg-green-500 hover:text-white px-2 py-1 rounded transition-all"
+          >
+            -
+          </button>
+        </div>
+      </div>
+    </div>
+    } @empty {
+    <h2 class="text-3xl font-semibold text-main">Cart is Empty !</h2>
+    }
+    <div class="flex justify-between items-center">
+      <p class="text-main my-2">
+        Total Cart Price:
+        {{
+          cartDetails().totalCartPrice !== 0
+            ? (cartDetails().totalCartPrice | currency : "GBP")
+            : (0 | currency : "GBP")
+        }}
+      </p>
+      <div class="flex gap-2">
+        @if(cartDetails().totalCartPrice){
+        <button
+          [routerLink]="['/checkout', cartDetails()._id]"
+          class="bg-green-600 hover:bg-white hover:text-green-500 hover:border-green-500 transition-all hover:border px-8 py-2 rounded-md border text-white my-1 block w-[90%] mx-auto"
+        >
+          Checkout
+        </button>
+        <button
+          (click)="clearCart()"
+          class="bg-red-500 hover:bg-white hover:text-red-600 hover:border-red-500 hover:border transition-all px-10 py-2 rounded-md border text-white my-1 block w-[90%] mx-auto"
+        >
+          Clear
+        </button>
+        } @else if(!cartDetails().totalCartPrice){
+        <button
+          class="bg-gray-500 transition-all px-8 py-2 rounded-md border text-white my-1 block w-[90%] mx-auto"
+        >
+          Checkout
+        </button>
+        <button
+          class="bg-gray-500 transition-all px-10 py-2 rounded-md border text-white my-1 block w-[90%] mx-auto"
+        >
+          Clear
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>
