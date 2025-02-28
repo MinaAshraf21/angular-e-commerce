@@ -2,6 +2,7 @@ import { ProductsService } from './../../core/services/products/products.service
 import {
   Component,
   inject,
+  OnDestroy,
   OnInit,
   signal,
   WritableSignal,
@@ -11,6 +12,7 @@ import { IProduct } from '../../shared/interfaces/iproduct';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../core/services/cart/cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -18,7 +20,7 @@ import { CartService } from '../../core/services/cart/cart.service';
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   customMainSlider: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -42,6 +44,7 @@ export class ProductDetailsComponent implements OnInit {
   private readonly toastrService = inject(ToastrService);
 
   product: WritableSignal<IProduct> = signal({} as IProduct);
+  addProductToCartSubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -61,15 +64,21 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addProductToCart(id: string) {
-    this.cartService.addProductToCart(id).subscribe({
-      next: (res) => {
-        console.log(res.data);
-        this.toastrService.success(res.message, 'FreshCart');
-        this.cartService.numOfCartItems.set(res.numOfCartItems);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.addProductToCartSubscription = this.cartService
+      .addProductToCart(id)
+      .subscribe({
+        next: (res) => {
+          console.log(res.data);
+          this.toastrService.success(res.message, 'FreshCart');
+          this.cartService.numOfCartItems.set(res.numOfCartItems);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.addProductToCartSubscription.unsubscribe();
   }
 }

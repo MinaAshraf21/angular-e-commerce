@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnDestroy,
   OnInit,
   signal,
   WritableSignal,
@@ -13,6 +14,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrdersService } from '../../core/services/orders/orders.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -20,7 +22,7 @@ import { OrdersService } from '../../core/services/orders/orders.service';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
   formBuilder = inject(FormBuilder);
   activatedRoute = inject(ActivatedRoute);
   ordersService = inject(OrdersService);
@@ -33,7 +35,7 @@ export class CheckoutComponent implements OnInit {
   errorMsg: WritableSignal<string> = signal('');
   cartId: WritableSignal<string> = signal('');
   checkoutForm: WritableSignal<FormGroup> = signal({} as FormGroup);
-
+  checkoutPaymentSubscription: Subscription = new Subscription();
   ngOnInit(): void {
     this.initForm();
     this.getCartId();
@@ -67,7 +69,7 @@ export class CheckoutComponent implements OnInit {
   submitForm() {
     if (this.checkoutForm().valid) {
       this.isLoading.set(true);
-      this.ordersService
+      this.checkoutPaymentSubscription = this.ordersService
         .checkoutPayment(this.cartId(), this.checkoutForm().value)
         .subscribe({
           next: (res) => {
@@ -80,5 +82,9 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.checkoutForm().markAllAsTouched();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.checkoutPaymentSubscription.unsubscribe();
   }
 }

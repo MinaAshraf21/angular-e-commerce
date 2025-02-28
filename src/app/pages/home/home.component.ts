@@ -2,6 +2,7 @@ import { CategoriesService } from './../../core/services/categories/categories.s
 import {
   Component,
   inject,
+  OnDestroy,
   OnInit,
   signal,
   WritableSignal,
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +34,7 @@ import { WishlistService } from '../../core/services/wishlist/wishlist.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   customMainSlider: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -107,6 +109,13 @@ export class HomeComponent implements OnInit {
   // products: IProduct[] = [];
   // wishList!: IProduct[];
 
+  getAllProductsSubscription: Subscription = new Subscription();
+  getAllCategoriesSubscription: Subscription = new Subscription();
+  getWishListSubscription: Subscription = new Subscription();
+  addProductToCartSubscription: Subscription = new Subscription();
+  addItemToWishListSubscription: Subscription = new Subscription();
+  removeItemFromWishListSubscription: Subscription = new Subscription();
+
   searchText: WritableSignal<string> = signal('');
   ngOnInit() {
     this.getAllProducts();
@@ -119,78 +128,98 @@ export class HomeComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productsService.getAllProducts().subscribe({
-      next: (res) => {
-        this.products.set(res.data);
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.getAllProductsSubscription = this.productsService
+      .getAllProducts()
+      .subscribe({
+        next: (res) => {
+          this.products.set(res.data);
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   getAllCategories() {
-    this.categoriesService.getAllCategories().subscribe({
-      next: (res) => {
-        this.categories.set(res.data);
-        //console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.getAllCategoriesSubscription = this.categoriesService
+      .getAllCategories()
+      .subscribe({
+        next: (res) => {
+          this.categories.set(res.data);
+          //console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   getWishList(): void {
-    this.wishlistService.getUserWishList().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.wishList.set(res.data);
-      },
-    });
+    this.getWishListSubscription = this.wishlistService
+      .getUserWishList()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.wishList.set(res.data);
+        },
+      });
   }
 
   addProductToCart(id: string, isInWishList: boolean) {
-    this.cartService.addProductToCart(id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.toastrService.success(res.message, 'FreshCart');
-        this.cartService.numOfCartItems.set(res.numOfCartItems);
-        if (isInWishList) {
-          this.wishlistService.removeItemFromWishList(id).subscribe({
-            next: (res) => {
-              console.log(res);
-              this.getWishList();
-            },
-          });
-        } else {
-          this.getWishList();
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.addProductToCartSubscription = this.cartService
+      .addProductToCart(id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastrService.success(res.message, 'FreshCart');
+          this.cartService.numOfCartItems.set(res.numOfCartItems);
+          if (isInWishList) {
+            this.wishlistService.removeItemFromWishList(id).subscribe({
+              next: (res) => {
+                console.log(res);
+                this.getWishList();
+              },
+            });
+          } else {
+            this.getWishList();
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   addItemToWishList(id: string): void {
-    this.wishlistService.addItemToWishList(id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.toastrService.success(res.message, 'FreshCart');
-        this.getWishList();
-      },
-    });
+    this.addItemToWishListSubscription = this.wishlistService
+      .addItemToWishList(id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastrService.success(res.message, 'FreshCart');
+          this.getWishList();
+        },
+      });
   }
 
   removeItemFromWishList(id: string): void {
-    this.wishlistService.removeItemFromWishList(id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.toastrService.success(res.message, 'FreshCart');
-        this.getWishList();
-      },
-    });
+    this.removeItemFromWishListSubscription = this.wishlistService
+      .removeItemFromWishList(id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastrService.success(res.message, 'FreshCart');
+          this.getWishList();
+        },
+      });
+  }
+  ngOnDestroy(): void {
+    this.getAllProductsSubscription.unsubscribe();
+    this.getAllCategoriesSubscription.unsubscribe();
+    this.getWishListSubscription.unsubscribe();
+    this.addProductToCartSubscription.unsubscribe();
+    this.addItemToWishListSubscription.unsubscribe();
+    this.removeItemFromWishListSubscription.unsubscribe();
   }
 }

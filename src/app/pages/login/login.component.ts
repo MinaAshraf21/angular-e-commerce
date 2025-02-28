@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
         },
         error: (err) => {
           //console.log(err);
-          this.errorMsg = err.error.message;
+          this.errorMsg.set(err.error.message);
           this.isLoading.set(false);
         },
       });

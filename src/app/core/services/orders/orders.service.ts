@@ -1,7 +1,13 @@
 import { AuthService } from './../auth/auth.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { environment } from '../../environments/environment';
 import { jwtDecode } from './../../../../../node_modules/jwt-decode/build/cjs/index';
 
@@ -11,7 +17,9 @@ import { jwtDecode } from './../../../../../node_modules/jwt-decode/build/cjs/in
 export class OrdersService {
   constructor(private httpClient: HttpClient) {}
   //authService = inject(AuthService);
-  userToken: any = jwtDecode(localStorage.getItem('userToken')!);
+  userToken: WritableSignal<any> = signal(
+    jwtDecode(localStorage.getItem('userToken')!)
+  );
 
   checkoutPayment(cartId: string, data: object): Observable<any> {
     return this.httpClient.post(
@@ -23,8 +31,9 @@ export class OrdersService {
   }
 
   getUserOrder(): Observable<any> {
+    this.userToken.set(jwtDecode(localStorage.getItem('userToken')!));
     return this.httpClient.get(
-      `${environment.baseUrl}/api/v1/orders/user/${this.userToken.id}`
+      `${environment.baseUrl}/api/v1/orders/user/${this.userToken().id}`
     );
   }
 }
