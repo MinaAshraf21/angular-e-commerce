@@ -23,7 +23,7 @@ export class OrdersService {
 
   checkoutPayment(cartId: string, data: object): Observable<any> {
     return this.httpClient.post(
-      `${environment.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=https://angular-e-commerce-beta.vercel.app/`,
+      `${environment.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=https://angular-e-commerce-51zszw99y-mina-ashrafs-projects-57244e4e.vercel.app/`,
       {
         shippingAddress: data,
       }
