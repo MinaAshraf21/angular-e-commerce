@@ -28,7 +28,16 @@ export class AppComponent {
   // }
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      initFlowbite();
+      setTimeout(() => {
+        if (typeof initFlowbite === 'undefined') {
+          console.error(
+            'Flowbite is not loaded. Check angular.json and import.'
+          );
+        } else {
+          initFlowbite();
+          console.log('Flowbite initialized successfully');
+        }
+      }, 100);
     }
   }
 }
