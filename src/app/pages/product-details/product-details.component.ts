@@ -36,6 +36,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       '<i class="fa-solid fa-arrow-right"></i>',
     ],
     items: 1,
+    responsive: {
+      0: {
+        items: 1,
+      },
+    },
+
     nav: true,
   };
   activatedRoute = inject(ActivatedRoute);

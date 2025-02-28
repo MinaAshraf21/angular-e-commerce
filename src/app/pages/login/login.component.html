@@ -1,26 +1,24 @@
 <section
-  class="mx-auto my-2 w-1/2 bg-gray-100 px-4 py-10 rounded border shadow"
+  class="mx-auto my-2 md:w-1/2 w-5/6 bg-gray-100 px-4 py-10 rounded border shadow"
 >
   <h1 class="font-light text-2xl text-center text-green-600">Login</h1>
   <form [formGroup]="loginForm()" (ngSubmit)="submitForm()">
     <div class="mb-6 mt-2">
       @let emailControl = loginForm().get('email');
 
-      <label
-        for="email"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900"
         >Email:</label
       >
       <input
         formControlName="email"
         type="text"
         id="email"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
       />
 
       @if (emailControl?.errors && emailControl?.touched) {
       <div
-        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400"
+        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100"
         role="alert"
       >
         <svg
@@ -49,21 +47,19 @@
     </div>
     <div class="mb-6 mt-2">
       @let passwordControl = loginForm().get('password');
-      <label
-        for="password"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900"
         >Password:</label
       >
       <input
         formControlName="password"
         type="password"
         id="password"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
       />
 
       @if (passwordControl?.errors && passwordControl?.touched) {
       <div
-        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400"
+        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100"
         role="alert"
       >
         <svg

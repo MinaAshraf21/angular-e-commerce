@@ -4,17 +4,19 @@
   <div class="flex flex-col gap-2">
     @for (prod of wishList(); track prod.id) {
     <div
-      class="grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-300 border-opacity-35 py-3"
+      class="grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-300 border-opacity-35 py-3 gap-2"
     >
       <div>
         <img
           [src]="prod.imageCover"
           [alt]="prod.title"
-          class="w-full h-[150px] object-contain"
+          class="w-full lg:h-[200px] h-[150px] object-contain"
         />
       </div>
-      <div class="flex justify-between items-center">
-        <div class="w-3/4">
+      <div
+        class="flex md:justify-between md:items-center md:flex-row flex-col gap-3 md:m-0 mx-auto my-2 w-full"
+      >
+        <div class="w-5/6 text-center md:text-start md:m-0 m-auto">
           <p>{{ prod.title }}</p>
           <p class="text-main">Price: {{ prod.price | currency : "GBP" }}</p>
           <button

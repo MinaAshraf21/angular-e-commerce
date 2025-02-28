@@ -4,17 +4,19 @@
   <div class="flex flex-col gap-2">
     @for (prod of cartDetails().products; track prod.product.id) {
     <div
-      class="grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-300 border-opacity-35 py-3"
+      class="md:grid md:grid-cols-[10%_minmax(0,1fr)] flex flex-col border-b border-gray-300 border-opacity-35 py-3 gap-2"
     >
       <div>
         <img
           [src]="prod.product.imageCover"
           [alt]="prod.product.title"
-          class="w-full h-[150px] object-contain"
+          class="w-full lg:h-[150px] h-[200px] object-contain"
         />
       </div>
-      <div class="flex justify-between items-center">
-        <div class="w-3/4">
+      <div
+        class="flex md:justify-between md:items-center md:flex-row flex-col gap-3 md:m-0 mx-auto my-2 w-full"
+      >
+        <div class="w-3/4 text-center md:text-start md:m-0 m-auto">
           <p>{{ prod.product.title }}</p>
           <p class="text-main">Price: {{ prod.price | currency : "GBP" }}</p>
           <button
@@ -24,7 +26,7 @@
             <i class="fa-solid fa-trash-can"></i> Remove
           </button>
         </div>
-        <div>
+        <div class="md:text-start text-center">
           <button
             (click)="updateCartItemCount(prod.count + 1, prod.product.id)"
             class="bg-transparent border border-green-500 hover:bg-green-500 hover:text-white px-2 py-1 rounded transition-all"
@@ -44,7 +46,7 @@
     } @empty {
     <h2 class="text-3xl font-semibold text-main">Cart is Empty !</h2>
     }
-    <div class="flex justify-between items-center">
+    <div class="flex md:justify-between items-center flex-col gap-2">
       <p class="text-main my-2">
         Total Cart Price:
         {{

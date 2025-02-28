@@ -8,17 +8,17 @@
     </h2>
     @for (prod of order.cartItems;track prod._id) {
     <div
-      class="grid md:grid-cols-[10%_minmax(0,1fr)] grid-cols-[20%_minmax(0,1fr)] border-b border-gray-300 border-opacity-75 py-3 gap-2"
+      class="md:grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-300 border-opacity-75 py-3 gap-2"
     >
-      <div>
+      <div class="md:m-0 mb-3">
         <img
           [src]="prod.product.imageCover"
           [alt]="prod.product.title"
-          class="w-full h-[150px] object-contain"
+          class="w-full lg:h-[150px] h-[200px] object-contain"
         />
       </div>
-      <div class="flex justify-between items-center">
-        <div class="w-3/4">
+      <div class="flex md:justify-between md:items-center md:flex-row flex-col">
+        <div class="w-3/4 m-auto md:m-0 md:text-start text-center">
           <span>{{ prod.product.title }}</span>
           <p class="text-main">Price: {{ prod.price | currency : "GBP" }}</p>
           <p class="text-main">Quantity: {{ prod.count }}</p>
@@ -27,7 +27,7 @@
         <div>
           <button
             [routerLink]="['/productdetails', prod.product.id]"
-            class="bg-green-600 hover:bg-white hover:text-green-500 hover:border-green-500 transition-all hover:border px-8 py-2 rounded-md border text-white my-1 block w-full mx-auto"
+            class="bg-green-600 hover:bg-white hover:text-green-500 hover:border-green-500 transition-all hover:border px-8 py-2 rounded-md border text-white my-1 block md:w-full w-[90%] mx-auto"
           >
             Product Details
           </button>
@@ -35,7 +35,7 @@
       </div>
     </div>
     }
-    <div class="flex justify-around p-5">
+    <div class="flex md:justify-around justify-between md:p-5 py-4">
       <p class="text-main">
         Order Price: {{ order.totalOrderPrice | currency : "GBP" }}
       </p>

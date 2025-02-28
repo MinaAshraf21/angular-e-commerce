@@ -1,26 +1,24 @@
 <section
-  class="mx-auto my-2 w-1/2 bg-gray-100 px-4 py-10 rounded border shadow"
+  class="mx-auto my-2 md:w-1/2 w-5/6 bg-gray-100 px-4 py-10 rounded border shadow"
 >
   <h1 class="font-light text-2xl text-center text-green-600">Checkout</h1>
 
   <form [formGroup]="checkoutForm()" (ngSubmit)="submitForm()">
     <div class="mb-6 mt-2">
       @let detailsControl = checkoutForm().get('details');
-      <label
-        for="details"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="details" class="block mb-2 text-sm font-medium text-gray-900"
         >Details:</label
       >
       <textarea
         formControlName="details"
         type="text"
         id="details"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
       ></textarea>
 
       @if (detailsControl?.errors && detailsControl?.touched) {
       <div
-        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400"
+        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100"
         role="alert"
       >
         <svg
@@ -49,21 +47,19 @@
     </div>
     <div class="mb-6 mt-2">
       @let phoneControl = checkoutForm().get('phone');
-      <label
-        for="phone"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="phone" class="block mb-2 text-sm font-medium text-gray-900"
         >Phone:</label
       >
       <input
         formControlName="phone"
         type="text"
         id="phone"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
       />
 
       @if (phoneControl?.errors && phoneControl?.touched) {
       <div
-        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400"
+        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100"
         role="alert"
       >
         <svg
@@ -93,21 +89,19 @@
     <div class="mb-6 mt-2">
       @let cityControl = checkoutForm().get('city');
 
-      <label
-        for="city"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="city" class="block mb-2 text-sm font-medium text-gray-900"
         >City:</label
       >
       <input
         formControlName="city"
         type="text"
         id="city"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
       />
 
       @if (cityControl?.errors && cityControl?.touched) {
       <div
-        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400"
+        class="flex mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100"
         role="alert"
       >
         <svg
