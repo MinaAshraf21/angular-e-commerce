@@ -3,7 +3,11 @@ import {
   importProvidersFrom,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import {
+  provideRouter,
+  withHashLocation,
+  withViewTransitions,
+} from '@angular/router';
 
 import { routes } from './app.routes';
 import {
@@ -26,7 +30,7 @@ import { loadingInterceptor } from './core/interceptors/loading/loading.intercep
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(routes, withViewTransitions(), withHashLocation()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),
