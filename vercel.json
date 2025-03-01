@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/allorders",
-      "destination": "/index.html"
+      "destination": "/"
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/"
     }
   ]
 }
