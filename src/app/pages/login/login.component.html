@@ -92,32 +92,37 @@
       </div>
       }
     </div>
-    <div class="flex md:flex-row flex-col gap-2 justify-between">
-      <button
-        class="text-green-500 hover:text-green-600 cursor-pointer"
-        routerLink="/forgotpassword"
-      >
-        Forgot Password?
-      </button>
+    <div
+      class="flex md:justify-end px-3 justify-center relative transform md:translate-y-0 translate-y-9"
+    >
       <button
         [disabled]="loginForm().invalid || isLoading()"
         type="submit"
-        class="btn-green disabled:bg-gray-600"
+        class="btn-green disabled:bg-gray-600 md:w-auto w-[65%]"
       >
         Login @if (isLoading()) {
         <i class="fas fa-spin fa-spinner"></i>
         }
       </button>
     </div>
-
-    @if (errorMsg()) {
-    <p class="bg-red-500 py-3 text-white rounded-md text-center mt-1">
-      Incorrect email Or password
-    </p>
-    } @if (success()) {
-    <p class="bg-green-500 py-3 text-white rounded-md text-center mt-1">
-      Welcome!
-    </p>
-    }
   </form>
+  <div
+    class="transform md:-translate-y-9 px-3 md:text-start text-center -translate-y-9"
+  >
+    <button
+      class="text-green-500 hover:text-green-600 cursor-pointer"
+      routerLink="/forgotpassword"
+    >
+      Forgot Password?
+    </button>
+  </div>
+  @if (errorMsg()) {
+  <p class="bg-red-500 py-3 text-white rounded-md text-center md:mt-0 mt-5">
+    Incorrect email Or password
+  </p>
+  } @if (success()) {
+  <p class="bg-green-500 py-3 text-white rounded-md text-center md:mt-0 mt-5">
+    Welcome!
+  </p>
+  }
 </section>
