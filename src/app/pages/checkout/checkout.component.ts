@@ -73,7 +73,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         .checkoutPayment(this.cartId(), this.checkoutForm().value)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            //console.log(res);
             if (res.status === 'success') {
               open(`${res.session.url}`, '_self');
             }

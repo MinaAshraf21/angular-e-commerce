@@ -26,7 +26,7 @@ export class AuthLayoutComponent {
           );
         } else {
           initFlowbite();
-          console.log('Flowbite initialized successfully');
+          //console.log('Flowbite initialized successfully');
         }
       }, 100);
     }

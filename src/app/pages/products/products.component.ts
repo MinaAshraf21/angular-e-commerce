@@ -55,10 +55,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => {
           this.products.set(res.data);
-          console.log(res);
+          //console.log(res);
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -68,7 +68,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .getUserWishList()
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.wishList.set(res.data);
         },
       });
@@ -79,13 +79,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .addProductToCart(id)
       .subscribe({
         next: (res) => {
-          console.log(res.data);
+          //console.log(res.data);
           this.toastrService.success(res.message, 'FreshCart');
           this.cartService.numOfCartItems.set(res.numOfCartItems);
           if (isInWishList) {
             this.wishlistService.removeItemFromWishList(id).subscribe({
               next: (res) => {
-                console.log(res);
+                //console.log(res);
                 this.getWishList();
               },
             });
@@ -94,7 +94,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -104,7 +104,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .addItemToWishList(id)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.toastrService.success(res.message, 'FreshCart');
           this.getWishList();
         },
@@ -116,7 +116,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .removeItemFromWishList(id)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.toastrService.success(res.message, 'FreshCart');
           this.getWishList();
         },

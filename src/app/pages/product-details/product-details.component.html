@@ -30,7 +30,7 @@
           {{ product().category.name }}
         </h3>
         <div class="flex justify-between items-center">
-          <span>{{ product().price }}EGP</span>
+          <span>{{ product().price | currency : "GBP" }}</span>
           <div class="flex items-center">
             <i class="fas fa-star text-yellow-300"></i>
             <span class="text-gray-500">{{ product().ratingsAverage }}</span>

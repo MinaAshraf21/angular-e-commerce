@@ -36,7 +36,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
         next: (res) => {
           //console.log(res);
           this.categories.set(res.data);
-          console.log(this.categories());
+          //console.log(this.categories());
         },
       });
   }

@@ -33,7 +33,7 @@ export class AllordersComponent implements OnInit {
     this.ordersService.getUserOrder().subscribe({
       next: (res) => {
         this.orders.set(res);
-        console.log(this.orders());
+        //console.log(this.orders());
       },
     });
   }
@@ -41,7 +41,7 @@ export class AllordersComponent implements OnInit {
   getSpecificProductDetails(id: string): void {
     this.productsService.getSpecificProduct(id).subscribe({
       next: (res) => {
-        console.log(res);
+        //console.log(res);
       },
     });
   }

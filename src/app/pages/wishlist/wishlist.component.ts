@@ -39,7 +39,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
       .getUserWishList()
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.wishList.set(res.data);
         },
       });
@@ -60,7 +60,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
           .removeItemFromWishList(id)
           .subscribe({
             next: (res) => {
-              console.log(res);
+              //console.log(res);
               this.getWishList();
             },
           });
@@ -79,7 +79,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
       .addProductToCart(id)
       .subscribe({
         next: (res) => {
-          console.log(res.data);
+          //console.log(res.data);
           this.toastrService.success(res.message, 'FreshCart');
           this.cartService.numOfCartItems.set(res.numOfCartItems);
           this.wishlistService.removeItemFromWishList(id).subscribe({
@@ -89,7 +89,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
           });
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }

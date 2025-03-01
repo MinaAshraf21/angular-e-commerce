@@ -13,10 +13,11 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../core/services/cart/cart.service';
 import { Subscription } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CarouselModule],
+  imports: [CarouselModule, CurrencyPipe],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
 })
@@ -59,12 +60,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         this.productsService.getSpecificProduct(productId).subscribe({
           next: (prod) => {
             this.product.set(prod.data);
-            console.log(prod.data);
+            //console.log(prod.data);
           },
         });
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
       },
     });
   }
@@ -74,12 +75,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       .addProductToCart(id)
       .subscribe({
         next: (res) => {
-          console.log(res.data);
+          //console.log(res.data);
           this.toastrService.success(res.message, 'FreshCart');
           this.cartService.numOfCartItems.set(res.numOfCartItems);
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }

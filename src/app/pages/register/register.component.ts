@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
         .sendRegisterFormData(this.registerForm().value)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            //console.log(res);
             if (res.message === 'success') {
               setTimeout(() => {
                 this.router.navigate(['/login']);
@@ -103,7 +103,7 @@ export class RegisterComponent implements OnInit {
             this.errorMsg.set('');
           },
           error: (err) => {
-            console.log(err);
+            //console.log(err);
             this.errorMsg.set(err.error.message);
 
             this.isLoading.set(false);

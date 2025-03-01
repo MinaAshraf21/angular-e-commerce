@@ -37,11 +37,11 @@ export class CartComponent implements OnInit, OnDestroy {
       .getLoggedUserCart()
       .subscribe({
         next: (res) => {
-          console.log(res.data); // totalCartPrice , products[{}]
+          //console.log(res.data); // totalCartPrice , products[{}]
           this.cartDetails.set(res.data);
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -61,12 +61,12 @@ export class CartComponent implements OnInit, OnDestroy {
           .deleteSpecificCartItem(id)
           .subscribe({
             next: (res) => {
-              console.log(res);
+              //console.log(res);
               this.cartDetails.set(res.data);
               this.cartService.numOfCartItems.set(res.numOfCartItems);
             },
             error: (err) => {
-              console.log(err);
+              //console.log(err);
             },
           });
         Swal.fire({
@@ -83,12 +83,12 @@ export class CartComponent implements OnInit, OnDestroy {
       .updateSpecificCartItemCount(count, id)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.cartDetails.set(res.data);
           this.cartService.numOfCartItems.set(res.numOfCartItems);
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -108,12 +108,12 @@ export class CartComponent implements OnInit, OnDestroy {
           .clearUserCart()
           .subscribe({
             next: (res) => {
-              console.log(res);
+              //console.log(res);
               this.cartDetails.set({} as ICart);
               this.cartService.numOfCartItems.set(0);
             },
             error: (err) => {
-              console.log(err);
+              //console.log(err);
             },
           });
         Swal.fire({

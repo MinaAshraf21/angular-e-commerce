@@ -133,10 +133,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => {
           this.products.set(res.data);
-          console.log(res);
+          //console.log(res);
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -150,7 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           //console.log(res);
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getUserWishList()
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.wishList.set(res.data);
         },
       });
@@ -171,13 +171,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       .addProductToCart(id)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.toastrService.success(res.message, 'FreshCart');
           this.cartService.numOfCartItems.set(res.numOfCartItems);
           if (isInWishList) {
             this.wishlistService.removeItemFromWishList(id).subscribe({
               next: (res) => {
-                console.log(res);
+                //console.log(res);
                 this.getWishList();
               },
             });
@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
         },
       });
   }
@@ -196,7 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .addItemToWishList(id)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.toastrService.success(res.message, 'FreshCart');
           this.getWishList();
         },
@@ -208,7 +208,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .removeItemFromWishList(id)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
           this.toastrService.success(res.message, 'FreshCart');
           this.getWishList();
         },

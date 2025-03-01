@@ -35,7 +35,7 @@ export class BrandsComponent implements OnInit, OnDestroy {
         next: (res) => {
           //console.log(res);
           this.brands.set(res.data);
-          console.log(this.brands());
+          //console.log(this.brands());
         },
       });
   }
