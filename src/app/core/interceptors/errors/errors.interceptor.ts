@@ -9,8 +9,11 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((err) => {
       // errors logic
-      console.log('from error interceptor', err.error.message);
-      toastrService.error(err.error.message, 'FreshCart');
+      //console.log('from error interceptor', err.error.message);
+      if (
+        err.error.message != 'You are not logged in. Please login to get access'
+      )
+        toastrService.error(err.error.message, 'FreshCart');
       return throwError(() => err);
     })
   );
