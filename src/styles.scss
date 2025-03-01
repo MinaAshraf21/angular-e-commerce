@@ -8,6 +8,10 @@
 
 /* You can add global styles to this file, and also import other style files */
 
+*::selection {
+  background-color: #0aad0a;
+}
+
 :root {
   --main-color: #0aad0a;
   --light-color: #f0f3f2;
